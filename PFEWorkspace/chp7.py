@@ -10,7 +10,7 @@ for line in fh:
 
 
 '''
-#prompt for file name, open that file, read through file looking for data, avg that data and print out statement
+# prompt for file name, open that file, read through file looking for data, avg that data and print out statement
 
 fname = input("Enter file name: ")
 fh = open(fname)
