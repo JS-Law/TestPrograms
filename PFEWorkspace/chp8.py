@@ -10,3 +10,22 @@ for line in fh:                     # to read every line of file romeo.txt
             lst.append(element)     # append
 lst.sort()              # sort the list (de-indent indicates that you sort when the loop ends)
 print(lst)
+
+# I nailed this in < 10 minutes !
+# program to parse, split and count based on criteria
+count = 0
+fname = input("Enter file name: ")
+fh = open(fname)
+
+for line in fh:
+    words = line.rstrip().split()
+    for word in words:
+        if word.startswith('From:'):
+            print(words[1])
+            count = count + 1
+
+
+
+
+print("There were", count, "lines in the file with From as the first word")
+
