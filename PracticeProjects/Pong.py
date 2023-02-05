@@ -83,12 +83,25 @@ while True:
     # Top Border, referencing window height
     if ball.ycor() > 340:
         ball.sety(340)
-        ball.dy *= -1 # reverses direction
+        ball.dy *= -1  # reverses direction
+
     if ball.ycor() < -340:
         ball.sety(-340)
-        ball.dy *= -1 # reverses direction
-
+        ball.dy *= -1  # reverses direction
     if ball.xcor() > 490 or ball.xcor() < -490:
-        # ball.goto(0)
+        ball.goto(0, 0)
+        # ball.dx *= -1
+
+    # Paddle and ball collisions
+    # This conditional is testing for if the balls x cor is greater than the paddles xcor and also ycor
+    if (ball.xcor() > 455 and ball.xcor() < 465) and (
+            ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
+        ball.setx(455)
         ball.dx *= -1
 
+    if (ball.xcor() < -455 and ball.xcor() > -465) and (
+            ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
+        ball.setx(-455)
+        ball.dx *= -1
+
+# https://www.youtube.com/watch?v=XGf2GcyHPhc&t=1554s stopped @ 32:13
