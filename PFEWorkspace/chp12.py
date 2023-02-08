@@ -35,7 +35,6 @@ mysock.connect( ('data.pr4e.org', 80) )                     #HOST = data.pr4e.or
                                                             #Essentially "dials the phone"
 """
 
-
 # Hypertext Transfer Protocol(HTTP) 12.2
 """
 Application Protocol
@@ -125,13 +124,12 @@ mysock.close()
          
 """
 
-
 # Using the Developer Console to Explore HTTP
 # Status: 200 means "Youre good!!:
 # Status: 404 means NOT FOUND
 # Status: 302 means redirection, GET request for the page you WERE looking for, cause it aint here
 
-# Unicode Characters and Strings
+# Unicode Characters and Strings 12.3
 """
 Representing Simple Strings
     -Each character is represented by a number between 0 and 256 stored in 8 bits of memory
@@ -159,10 +157,129 @@ Multi-Byte Characters
             - 1, 2, 3, OR 4 characters
             -Automatically detectable
             
-            
-            @10:51
-        
+Two Kinds of Strings in Python
+    -in Python 3, ALL strings are unicode
+Python 3 and Unicode
+    -In Python 3, all strings internally are UNICODE!!!
+    -Working with string variables in Python programs and reading data from files usually "just works"
+    -When we talk to a network resource using sockets or talk to a database we have to encode and decode data
+        -Usually to UTF-8
+        -99% code usually will be UTF-8
+Python String to Bytes
+    -When we talk to an external resource like a network socket, we send bytes, so we need to encode Python 3 strings 
+    into a given character encoding
+    -When we read data from an external resource, we must decode it based on the character set so it is properly 
+    represented in Python 3 as a string!
+ex.
+while True
+    data = mysock.recv(512)         #recieves up to 512 bytes (data variable is bytes)
+    if ( len(data) < 1 ) :          #if data length is less than 1, break loop, transmission has ended
+        break
+    mystring = data.decode()        #we pass decode() into data and assign it to a new variable 'mystring'
+    print(mystring)                 #decode() by default decodes to UTF-8 or ASCII(dynamically)
+
+An HTTP Request in Python
+ex.
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('data.pr4e.org', 80))
+cmd = 'GET http://data.pr4e.org/intro-short.txt HTTP/1.0\r\n\r\n'.encode() #BYTES!!!!!!(UTF-8 or ASCII)
+mysock.send(cmd)    #send argument is 'cmd; which are BYTES
+
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    print(data.decode(), end='') #Decode upon receiving data!
+
+mysock.close()
+
+SEND --------> ENCODE
+RECEIVE -----> DECODE
 
 
+"""
+
+# Retrieving Web Pages
+"""
+DRY(Coding Concept)
+    -Dont Repeat Yourself
+    -In an effort to be DRY, programmers already have written a library that handles the REQ/REP cycle for us!
+    
+Using urllib in Python
+    -Since HTTP is so common, we have a library that does all the socket work for us and makes
+    web pages look like a file!
+    -Thats honestly pretty sick!
+ex._______________________________________________
+import urllib.request, urllib.parse, urllib.error
+
+fhand = urllib.request.urlopen('http://www.data.pr4e.org/romeo.txt')
+for line in fhand:                  
+    print(line.decode().strip())    #the iterable variable line comes in as BYTE ARRAY and we must decode on way in
+
+If We Can Open Web Pages Like a File...
+    -Start thinking of them like files
+    -Start using urlopen() instead of open()
+ex._______________________________________________
+import urllib.request, urllib.parse, urllib.error
+
+fhand = urllib.request.urlopen('http://www.data.pr4e.org/romeo.txt')
+
+counts = dict()
+for line in fhand:
+    words = line.decode().split() #Since this is coming from network, we must decode from byte string to char string
+    for word in words:
+        counts[word] = counts.get(word, 0) + 1
+print(counts)
+"""
+
+# Parsing Web Pages 12.5
+"""
+What is Web Scraping?
+    -When a program or script pretends to be a browser and retrieves web pages, looks at those web pages, extracts
+    information, and then looks at some more web pages
+    -Search engines scrape web pages - we call this "spidering the web" or "web crawling"
+Why Scrape?
+    -Pull data - particularly social data - who links to who?
+    -Get your own data back out of some system that has no "export capability"
+    -Monitor a site for new information
+    -Spider the web to make a database for a search engine
+Scraping Web Pages
+    -There is some controversy about web page scraping and some sites are a bit snippy about it
+    -Republishing copyrighted information is not allowed
+    -Violating terms of service is not allowed
+    -Parsing HTML is very ugly and RegEx does not make it any easier because HTML can be so messy
+        -FULL of syntax errors
+        -Lets say you are searching for 'href=' or links and there are new lines strewn throughout in unexpected
+        places. Your algorithm would blow up because it would not return correct values!
+The Easy Way - Beautiful Soup
+    -You could do string searches the hard way
+    -Or the easy way by using Beautiful Soup from www.crummy.com
+        -named something silly because HTML on the web is just that bad!
+To Install Beautiful Soup
+    -https://pypi.python.org/pypi/beautifulsoup4
+
+Using Beautiful Soup To Parse Anchor Tags!
+ex.______________________________________________
+import urllib.request, urllib.parse, urllib.error
+from bs4 import BeautifulSoup
+
+url = input('Enter:')
+html = urllib.request.urlopen(url).read() #Opens the url that weve assigned to input
+soup = BeautifulSoup(html, 'html.parser') # Takes nasty HTML and cleans it up for us!
+
+# Retrieve all of the anchor tags
+tags = soup('a')
+for tag in tags:
+    print(tag.get('href', None))
+__________________________________________________
+"""
+# Summary!!
+"""
+The TCP/IP gives us pipes/sockets between applications
+We Designed application protocols to make use of these pipes
+HTTP is a simple yet powerful protocol
+Python has good support for sockets, HTTP, and HTML parsing
 
 """
