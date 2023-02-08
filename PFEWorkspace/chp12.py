@@ -1,5 +1,5 @@
 # Networked Technology 12.1
-
+""""""
 """
 Transport Control Protocol(TCP)
     -Built on top of IP(Internet Protocol)
@@ -37,7 +37,6 @@ mysock.connect( ('data.pr4e.org', 80) )                     #HOST = data.pr4e.or
 
 
 # Hypertext Transfer Protocol(HTTP) 12.2
-
 """
 Application Protocol
     -Since TPC (and Python) give us a reliable socket, what do want to do with the socket? 
@@ -131,9 +130,38 @@ mysock.close()
 # Status: 200 means "Youre good!!:
 # Status: 404 means NOT FOUND
 # Status: 302 means redirection, GET request for the page you WERE looking for, cause it aint here
+
+# Unicode Characters and Strings
 """
+Representing Simple Strings
+    -Each character is represented by a number between 0 and 256 stored in 8 bits of memory
+    -We refer to 8 bits of memory as a "byte" of memory - (i.e. my disk drive contains 3 TeraBytes of memory)
+    -The ord() function tells us the numeric value of the character
+ex.
+print(ord('H')) OP:72
+print(ord('e')) OP:101
+print(ord('\n'))OP:10
 
-
+    -Explains why lowercase letters are greater than uppercase letters
+        -Uppercase letters were the only option in earlier computers, therefore were translated into ASCII
+        first.
+        -Meaning uppercase letters are a lesser number value because there are 126 ASCII translations
+Unicode
+    -Unicode is universal code for hundreds of millions of characters
+    -It became import for the universal exchange of the SAME data
+Multi-Byte Characters
+    -To represent the wide range of characters computers must handle, we represent characters with more than one byte
+        -UTF-16 - Fixed Length - Two Bytes  #
+        -UTF-32 - Fixed Length - Four Bytes #
+        -UTF-8  - 1-4 Bytes
+            -Upwards compatible with ASCII
+            -UTF-8 is recommended practice for encoding data to be exchanged between systems
+            - 1, 2, 3, OR 4 characters
+            -Automatically detectable
+            
+            
+            @10:51
+        
 
 
 
