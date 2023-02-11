@@ -21,7 +21,7 @@ numlist = []
 sum = 0
 tags = soup('span')
 for tag in tags:
-    snum = str(tag.contents[0])
+    # snum = str(tag.contents[0])
     num = int(tag.contents[0])
     numlist.append(num)
 for i in numlist:
