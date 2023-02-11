@@ -3,8 +3,8 @@ import xml.etree.ElementTree as ET
 
 url = input("Enter Location: ")
 print ("Retrieving", url)
-html = request.urlopen(url)
-data = html.read()
+html = request.urlopen(url) # STORES HTML WITHIN VARIABLE
+data = html.read()          # READS THE DATA INTO VARIABLE DATA
 print("Retrieved",len(data),"characters")
 
 tree = ET.fromstring(data)  # MOST IMPORTANT LINE, GIVES US GOOD XML TO WORK WITH
