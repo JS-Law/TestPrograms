@@ -41,9 +41,11 @@ def diceroll():
     return dice_sum, dice_list  # Returns
 
 
-# Get Name
+# Objects!
 player = input('NAME PLEASE: ')
 player_stats = {'health': 100, 'attack': 100}
+inventory_list = {}
+
 # Introduce to game
 
 print('Welcome to the show, ' + player.title() + '!')
@@ -76,6 +78,7 @@ elif door1_choice.lower() == 'right':  # 'Incorrect' choice.
     time.sleep(1.2)
     bonus_roll = input("You awaken to the sound of dice being rolled. Do you wish to roll six times?"
                        "\nYou may receive more than you bargained for..\n")
+    # Bonus Roll For Extra Health!
     if bonus_roll == 'yes':
         bonus_dice_roll = diceroll()
         print(bonus_dice_roll)
