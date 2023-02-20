@@ -99,7 +99,7 @@ def second_scene():
             print("Please enter yes or no.")
 
 
-# SHOULD HAVE BEEN THE INTRO SCENE
+# Chamber Scene 
 def third_scene():
     wind_sound = "BwooOOooOOooooOOooOOooooOOooOOooooOOooOOooooOOooOOoosh\n"
     for i in wind_sound:
