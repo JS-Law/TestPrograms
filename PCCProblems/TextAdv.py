@@ -99,7 +99,7 @@ def second_scene():
             print("Please enter yes or no.")
 
 
-# Chamber Scene 
+# Chamber Scene
 def third_scene():
     wind_sound = "BwooOOooOOooooOOooOOooooOOooOOooooOOooOOooooOOooOOoosh\n"
     for i in wind_sound:
@@ -119,13 +119,21 @@ def third_scene():
             print('nice')
             # mob
         elif choice == 'forward':
-            print('nice')
+            forward_scene()
             # dice game loss health
         elif choice == 'backward':
             print('nice')
             # lose health
         else:
             continue
+
+
+def forward_scene():
+    if 'rolled' in player_stats:
+        print("Sorry, looks like you've already rolled!")
+    elif 'rolled' not in player_stats:
+        diceroll()
+        player_stats = player_stats['rolled']
 
 
 intro()
