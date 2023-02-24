@@ -38,6 +38,8 @@ def intro():
 x = diceroll()
 print(x[0])
 """
+
+
 # I need to figure out how to nest the entire game within a while loop in order to validate certain inputs that
 # call certain functions depending on the input received
 
@@ -49,10 +51,13 @@ print(x[0])
 
 # loop that iterates over a string and prints on the same line
 # lets try to make this a function tomorrow!
-string = input("Please Enter Your Name: ")
-message = "hello " + string
-for i in message:
-    time.sleep(.19)
-    print(i,end="")
+def printer(message):
+    for i in message:
+        time.sleep(.15)
+        print(i, end="")
 
 
+string = input("blah, blah, blah, blah, blah\n")
+printer(string)
+user_input = string
+printer(user_input)
